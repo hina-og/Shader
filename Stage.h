@@ -7,6 +7,12 @@ struct CONSTBUFER_MODEL
     XMFLOAT4 eyePosition_;//視点位置
 };
 
+struct CONSTBUFER_STAGE
+{
+    XMFLOAT4 lightPosition_;//光源位置
+    XMFLOAT4 eyePosition_;//視点位置
+};
+
 //◆◆◆を管理するクラス
 class Stage : public GameObject
 {

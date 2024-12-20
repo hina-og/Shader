@@ -22,6 +22,9 @@ class Fbx
 	{
 		Texture* pTexture;
 		XMFLOAT4 diffuse;
+		XMFLOAT4 specular;//鏡面反射係数
+		XMFLOAT4 shininess;//鏡面反射のパラメーター
+		XMFLOAT4 ambient;//環境光の反射係数（環境光の色？）
 		XMFLOAT4 factor;
 	};
 
@@ -33,6 +36,9 @@ class Fbx
 		XMFLOAT4	diffuseColor;//RGBの拡散反射係数（色）
 		//XMFLOAT4    lightPosition;//光源位置
 		XMFLOAT4	diffuseFactor;//拡散光の反射係数
+		XMFLOAT4 ambientColor;
+		XMFLOAT4 specularColor;
+		XMFLOAT4 shininess;
 		int			isTextured;
 	};
 
@@ -42,6 +48,8 @@ class Fbx
 		XMVECTOR uv; //テクスチャ座標
 		XMVECTOR normal; //法線ベクトル
 	};
+
+	bool light;//true:点光源、false:平行光源
 
 	int vertexCount_;	//頂点数
 	int polygonCount_;	//ポリゴン数

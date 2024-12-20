@@ -74,18 +74,33 @@ void Stage::Update()
         p = { p.x ,p.y, p.z - 0.01f,p.w };
         Direct3D::SetLightPos(p);
     }
-    if (Input::IsKey(DIK_UP))
+    if (Input::IsKey(DIK_SPACE))
     {
         XMFLOAT4 p = Direct3D::GetLightPos();
         p = { p.x,p.y + 0.01f, p.z,p.w };
         Direct3D::SetLightPos(p);
     }
-    if (Input::IsKey(DIK_DOWN))
+    if (Input::IsKey(DIK_LSHIFT))
     {
         XMFLOAT4 p = Direct3D::GetLightPos();
         p = { p.x ,p.y - 0.01f, p.z,p.w };
         Direct3D::SetLightPos(p);
     }
+
+    CONSTBUFER_STAGE cb;
+    cb.lightPosition_ = Direct3D::GetLightPos();
+    XMStoreFloat4(&cb.eyePosition_, Camera::GetPosition());
+
+
+    D3D11_MAPPED_SUBRESOURCE pdata;
+    Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
+    memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る
+
+    Direct3D::pContext_->Unmap(pConstantBuffer_, 0);	//再開
+
+    //コンスタントバッファ
+    Direct3D::pContext_->VSSetConstantBuffers(1, 1, &pConstantBuffer_);	//頂点シェーダー用	
+    Direct3D::pContext_->PSSetConstantBuffers(1, 1, &pConstantBuffer_);	//ピクセルシェーダー用
 }
 
 //描画
@@ -123,18 +138,21 @@ void Stage::Draw()
     Model::Draw(hDonutTeLa_);
 
     tbunny.scale_ = { 1,1,1 };
-    tbunny.position_ = { 0.5,0.3,0 };
+    tbunny.position_ = { -0.5,0.3,0 };
     tbunny.rotate_.y += 0.1;
     Model::SetTransform(hDonutCoPh_, tbunny);
     Model::Draw(hDonutCoPh_);
 
     tbunny.scale_ = { 1,1,1 };
-    tbunny.position_ = { -0.5,0.3,0 };
+    tbunny.position_ = { 0.5,0.3,0 };
     tbunny.rotate_.y += 0.1;
     Model::SetTransform(hDonutCoLa_, tbunny);
     Model::Draw(hDonutCoLa_);
 
-    ImGui::Text("Rotate:%.3f", tbunny.rotate_.y);
+    ImGui::Text("左上：テクスチャありphong");
+    ImGui::Text("右上：テクスチャありlambert");
+    ImGui::Text("左下：テクスチャなしphong");
+    ImGui::Text("右下：テクスチャなしlambert");
 
     //コンスタントバッファの設定とシェーダーへのコンスタントバッファのセットを書く
 }
