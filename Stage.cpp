@@ -138,12 +138,16 @@ void Stage::Draw()
     Model::Draw(hDonutTeLa_);
 
     tbunny.scale_ = { 1,1,1 };
+    tbunny.position_ = { 0.5,0.3,0 };
+    tbunny.rotate_.y += 0.1;
     tbunny.position_ = { -0.5,0.3,0 };
     tbunny.rotate_.y += 0.1;
     Model::SetTransform(hDonutCoPh_, tbunny);
     Model::Draw(hDonutCoPh_);
 
     tbunny.scale_ = { 1,1,1 };
+    tbunny.position_ = { -0.5,0.3,0 };
+    tbunny.rotate_.y += 0.1;
     tbunny.position_ = { 0.5,0.3,0 };
     tbunny.rotate_.y += 0.1;
     Model::SetTransform(hDonutCoLa_, tbunny);
