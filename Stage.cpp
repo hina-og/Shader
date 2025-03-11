@@ -17,8 +17,8 @@ Stage::Stage(GameObject* parent)
     hGround = -1;
     hBunny_ = -1;
 
-    hDonutTePh_ = -1;
-    hDonutTeLa_ = -1;
+    hDonutTexPh_ = -1;
+    hDonutTexLa_ = -1;
     hDonutCoPh_ = -1;
     hDonutCoLa_ = -1;
 
@@ -36,8 +36,8 @@ void Stage::Initialize()
     hRoom_ = Model::Load("Assets\\room.fbx");
     hGround = Model::Load("Assets\\plane3.fbx");
     hBunny_ = Model::Load("Assets\\stanford-bunny.fbx");
-    hDonutTePh_ = Model::Load("Assets\\donutTePh.fbx");
-    hDonutTeLa_ = Model::Load("Assets\\donutTeLa.fbx");
+    hDonutTexPh_ = Model::Load("Assets\\donutTePh.fbx");
+    hDonutTexLa_ = Model::Load("Assets\\donutTeLa.fbx");
     hDonutCoPh_ = Model::Load("Assets\\donutCoPh.fbx");
     hDonutCoLa_ = Model::Load("Assets\\donutCoLa.fbx");
     Camera::SetPosition(XMFLOAT3{ 0, 0.8, -2.8 });
@@ -127,37 +127,31 @@ void Stage::Draw()
     static Transform tbunny;
     tbunny.scale_ = { 1,1,1 };
     tbunny.position_ = { -0.5,1.2,0 };
-    tbunny.rotate_.y += 0.1;
-    Model::SetTransform(hDonutTePh_, tbunny);
-    Model::Draw(hDonutTePh_);
+    tbunny.rotate_.y += 0.5;
+    Model::SetTransform(hDonutTexPh_, tbunny);
+    Model::Draw(hDonutTexPh_);
 
     tbunny.scale_ = { 1,1,1 };
     tbunny.position_ = { 0.5,1.2,0 };
-    tbunny.rotate_.y += 0.1;
-    Model::SetTransform(hDonutTeLa_, tbunny);
-    Model::Draw(hDonutTeLa_);
+    tbunny.rotate_.y += 0.5;
+    Model::SetTransform(hDonutTexLa_, tbunny);
+    Model::Draw(hDonutTexLa_);
 
     tbunny.scale_ = { 1,1,1 };
-    tbunny.position_ = { 0.5,0.3,0 };
-    tbunny.rotate_.y += 0.1;
     tbunny.position_ = { -0.5,0.3,0 };
-    tbunny.rotate_.y += 0.1;
+    tbunny.rotate_.y += 0.5;
     Model::SetTransform(hDonutCoPh_, tbunny);
     Model::Draw(hDonutCoPh_);
 
     tbunny.scale_ = { 1,1,1 };
-    tbunny.position_ = { -0.5,0.3,0 };
-    tbunny.rotate_.y += 0.1;
     tbunny.position_ = { 0.5,0.3,0 };
-    tbunny.rotate_.y += 0.1;
+    tbunny.rotate_.y += 0.5;
     Model::SetTransform(hDonutCoLa_, tbunny);
     Model::Draw(hDonutCoLa_);
 
-    ImGui::Text("左上：テクスチャありphong");
-    ImGui::Text("右上：テクスチャありlambert");
-    ImGui::Text("左下：テクスチャなしphong");
-    ImGui::Text("右下：テクスチャなしlambert");
+    ImGui::Text("Rotate:%.3f", tbunny.rotate_.y);
 
+    //コンスタントバッファの設定とシェーダーへのコンスタントバッファのセットを書く
     //コンスタントバッファの設定とシェーダーへのコンスタントバッファのセットを書く
 }
 

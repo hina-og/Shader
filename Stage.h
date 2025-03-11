@@ -21,8 +21,8 @@ class Stage : public GameObject
     int hGround;
     int hBunny_;
 
-    int hDonutTePh_;
-    int hDonutTeLa_;
+    int hDonutTexPh_;
+    int hDonutTexLa_;
     int hDonutCoPh_;
     int hDonutCoLa_;
 
